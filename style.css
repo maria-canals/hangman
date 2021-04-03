@@ -1,0 +1,19 @@
+.character {
+  border-bottom: 2px solid black;
+  width: 40px;
+  height: 30px;
+  margin: 10px;
+  padding-left: 15px;
+}
+
+.character-space {
+  border: none;
+  width: 40px;
+  height: 20px;
+  margin: 10px;
+  background-color: rgb(255, 255, 255);
+}
+
+#puzzle {
+  height: 55vh;
+}
