@@ -1,9 +1,8 @@
-
-const movieChosen = await filterPuzzle()
-
 let game;
-let puzzle = movieChosen.toLowerCase();
-puzzle = puzzle.split('')
+let movieChosen;
+movieChosen = await filterPuzzle()
+
+let puzzle = movieChosen.toLowerCase().split('')
 let puzzleSplit = movieChosen.toLowerCase().split('').filter(ch => ch !== ' ');
 
 game = new Hangman(true, puzzle, 5, puzzleSplit);
@@ -33,16 +32,14 @@ game.renderRemaningGuesses()
 const resetButton = document.getElementById('resetButton')
 const characterChosenDIV = document.getElementById('charactersChosen')
 
-let str = ''
 const startGame = (e) => {
     const inputCharacter = e.key;
     str += inputCharacter
     characterChosenDIV.textContent = str
     game.checkInputCharacter(inputCharacter)
-    const resultGame = game.checkGameStatus()
     game.renderCharacter()
     game.renderRemaningGuesses()
-    game.checkGameStatus()
+    const resultGame = game.checkGameStatus()
     if (!resultGame) {
         window.removeEventListener('keypress', startGame)
 
@@ -50,20 +47,27 @@ const startGame = (e) => {
     }
 }
 
-window.addEventListener('keypress', startGame)
-
-resetButton.addEventListener('click', () => {
+let str = ''
+const resetGame = async () => {
     resetButton.classList.replace('d-block', 'd-none');
     gameResult.textContent = '';
     str = ''
-    characterChosenDIV.textContent = ''
-    game = new Hangman(true, puzzle, 5, puzzleSplit)
-    console.log(game)
+    characterChosenDIV.textContent = '';
+    game.resetCharacter()
+
+
+    movieChosen = await filterPuzzle()
+    puzzle = movieChosen.toLowerCase().split('')
+    puzzleSplit = movieChosen.toLowerCase().split('').filter(ch => ch !== ' ');
+    game = new Hangman(true, puzzle, 5, puzzleSplit);
+    console.log('NEW HANGMAN', game)
     render(puzzle)
     game.renderRemaningGuesses()
-    game.resetCharacter()
     window.addEventListener('keypress', startGame)
+}
+window.addEventListener('keypress', startGame)
 
-})
+resetButton.addEventListener('click', resetGame)
+
 
 console.log(game)

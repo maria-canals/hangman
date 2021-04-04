@@ -3,8 +3,8 @@ class Hangman {
     constructor(stillPlaying, puzzle, lives, puzzleSplit) {
         this.stillPlaying = stillPlaying,
             this.lives = lives,
-            this.puzzle = puzzle
-        this.guessedCharacter = [],
+            this.puzzle = puzzle,
+            this.guessedCharacter = [],
             this.charachterToGuess = puzzleSplit
     }
 
@@ -40,6 +40,7 @@ class Hangman {
         for (const sp of allSpans) {
             sp.textContent = '';
         }
+        allSpans.forEach(span => span.remove())
     }
 
     renderRemaningGuesses() {
